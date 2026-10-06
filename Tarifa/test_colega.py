@@ -1,6 +1,11 @@
+import pytest
+
+from isencao import isento
+
+
 @pytest.mark.parametrize("pcd,compra,app,minutos,esperado", [
     (True, 0.00, False, 100, True), # R1
-    (False, 200.00, False, 300, False), # R2
+    (False, 200.00, True, 300, False), # R2
     (False, 200.00, False, 100, True), # R3
     (False, 50.00, True, 100, True), # R4
     (False, 50.00, False, 100, False), # R5

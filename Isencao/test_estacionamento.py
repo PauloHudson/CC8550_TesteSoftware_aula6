@@ -1,0 +1,34 @@
+import pytest
+
+from estacionamento import calcular_tarifa
+
+
+@pytest.mark.parametrize(
+	"minutos, esperado",
+	[
+		(0, 0.00), (1, 0.00), (15, 0.00), (16, 12.00),
+		(180, 12.00), (181, 15.00), (240, 15.00), (241, 18.00),
+		(300, 18.00), (301, 21.00), (719, 39.00), (720, 39.00),
+		(721, 60.00), (1000, 60.00),
+	],
+	ids=[
+		"minimo", "acima_minimo", "fim_tolerancia", "inicio_cobranca",
+		"fim_tarifa_base", "primeira_hora_adicional", "fim_primeira_hora",
+		"fracao_segunda_hora", "hora_adicional_completa", "fracao_terceira_hora",
+		"antes_diaria", "fim_faixa_progressiva", "inicio_diaria", "acima_diaria",
+	],
+)
+def test_tarifa_valida(minutos, esperado):
+	assert calcular_tarifa(minutos) == esperado
+
+
+@pytest.mark.parametrize("minutos", [-1, -60], ids=["menos_um", "negativo"])
+def test_tempo_negativo(minutos):
+	with pytest.raises(ValueError):
+		calcular_tarifa(minutos)
+
+
+@pytest.mark.parametrize("minutos", [None, 15.0, "15"], ids=["nenhum", "real", "texto"])
+def test_tempo_nao_inteiro(minutos):
+	with pytest.raises(TypeError):
+		calcular_tarifa(minutos)
