@@ -2,14 +2,14 @@
 
 ## Exercicio 1 (b)
 
-| Classe | Entradas |
-|---|---|
-| Valida: tolerancia | 0 a 15 minutos |
-| Valida: tarifa base | 16 a 180 minutos |
-| Valida: faixa progressiva | 181 a 720 minutos |
-| Valida: diaria | acima de 720 minutos |
-| Invalida: tempo negativo | menor que 0 |
-| Invalida: tipo | qualquer entrada que nao seja inteira |
+| Classe                    | Entradas                              |
+|---------------------------|---------------------------------------|
+| Valida: tolerancia        | 0 a 15 minutos                        |
+| Valida: tarifa base       | 16 a 180 minutos                      |
+| Valida: faixa progressiva | 181 a 720 minutos                     |
+| Valida: diaria            | acima de 720 minutos                  |
+| Invalida: tempo negativo  | menor que 0                           |
+| Invalida: tipo            | qualquer entrada que nao seja inteira |
 
 A faixa de 181 a 720 e uma classe de entrada quanto ao tipo de tratamento,
 mas possui fronteiras internas de cobranca: cada hora adicional ou fracao
@@ -18,12 +18,13 @@ testados.
 
 ## Exercicio 2 (a)
 
-| Menor entrada | Devolvido | Esperado | Defeito |
-|---|---:|---:|---|
-| 0 | ValueError | R$ 0,00 | `<= 0` no lugar de `< 0` |
-| 15 | R$ 12,00 | R$ 0,00 | `< 15` no lugar de `<= 15` |
-| 181 | R$ 12,00 | R$ 15,00 | arredondamento para baixo |
-| 720 | R$ 60,00 | R$ 39,00 | `< 720` no lugar de `<= 720` |
+| Menor  |              |          |                              |
+|entrada | Devolvido    | Esperado | Defeito                      |
+|------- |--------------|----------|------------------------------|
+| 0      | ValueError   | R$ 0,00  | `<= 0` no lugar de `< 0`     |
+| 15     | R$ 12,00     | R$ 0,00  | `< 15` no lugar de `<= 15`   |
+| 181    | R$ 12,00     | R$ 15,00 | arredondamento para baixo    |
+| 720    | R$ 60,00     | R$ 39,00 | `< 720` no lugar de `<= 720` |
 
 Tambem ha erros de arredondamento em cada fronteira interna da faixa
 progressiva, como 241 minutos: a versao devolve R$ 15,00, mas o esperado e
@@ -47,13 +48,13 @@ R$ 0,00, R$ 12,00, R$ 18,00 e R$ 60,00, todos os valores esperados.
 Na tabela reduzida, `S` significa sim, `N` significa nao e `X` significa
 don't care.
 
-| Condicao | R1 | R2 | R3 | R4 | R5 |
-|---|---|---|---|---|---|
+| Condicao             | R1| R2| R3| R4| R5|
+|----------------------|---|---|---|---|---|
 | Credencial especial? | S | N | N | N | N |
-| Compras >= R$ 150? | X | X | S | N | N |
-| Cadastro no app? | X | X | X | S | N |
-| Permanencia <= 240? | X | N | S | S | S |
-| Isento? | S | N | S | S | N |
+| Compras >= R$ 150?   | X | X | S | N | N |
+| Cadastro no app?     | X | X | X | S | N |
+| Permanencia <= 240?  | X | N | S | S | S |
+| Isento?              | S | N | S | S | N |
 
 Em R1, a credencial decide sozinha. Em R2, a permanencia acima de 240
 decide que nao ha isencao. Em R3, compras suficientes decidem; em R4,
